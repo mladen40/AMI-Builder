@@ -1,0 +1,47 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "{{user `aws_region`}}",
+             "source_ami_filter": {
+                 "filters": {
+                    "virtualization-type": "hvm",
+                    "name": "ViaSat-CentOS-7*",
+                    "root-device-type": "ebs"
+                    },
+                 "owners": ["174484605794"],
+                 "most_recent": true
+             },
+            "instance_type": "t2.nano",
+            "ssh_username": "deployuser",
+            "ami_name": "vsat-c7-base-v1.00-{{isotime \"20060102 1504\"| clean_ami_name}}",
+            "subnet_id": "{{user `aws_subnet_id` }}",
+            "vpc_id": "{{ user `aws_vpc_id`}}",
+            "ami_regions": ["us-west-2", "us-east-1"],
+            "ami_users": ["393375782330", "531236615363", "037087938423"]
+            }
+    ],
+    "provisioners": [
+      {
+          "type": "shell",
+          "inline": [
+              "sudo pip install ansible"
+          ]
+      },
+      {
+            "type": "ansible-local",
+            "playbook_file": "ansible/playbook.yml",
+            "role_paths": [
+               "ansible/roles/common"
+            ],
+            "playbook_dir": "ansible",
+            "galaxy_file": "ansible/requirements.yaml"
+         },
+         {
+           "type": "shell",
+           "inline": [
+             "rm .ssh/authorized_keys ; sudo rm /root/.ssh/authorized_keys"
+           ]
+         }
+    ]
+}

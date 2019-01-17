@@ -1,0 +1,53 @@
+---
+- hosts: localhost
+  remote_user: deployuser
+  become: yes
+  connection: local
+  tasks:
+    - name: Copy Repo files from temp
+      shell: cp /etc/yum.repos.d/temp/*.repo /etc/yum.repos.d
+    - name: install epel
+      yum: name=epel-release state=present
+    - name: install device-mapper
+      yum: name=device-mapper state=present
+    - name: enable epel-testing
+      shell:  yum-config-manager --enable epel-testing
+    - name: add duo repo
+      yum_repository:
+        name: duosecurity
+        description: Duo Security Repo
+        baseurl: http://pkg.duosecurity.com/CentOS/$releasever/$basearch
+        gpgkey: https://duo.com/RPM-GPG-KEY-DUO
+        gpgcheck: yes
+    - name: install pystache
+      yum: name=pystache state=latest
+    - name: install python-daemon
+      yum: name=python-daemon state=latest
+    - name: install python-lockfile
+      yum: name=python-lockfile state=latest
+    - name: install python2-simplejson
+      yum: name=python2-simplejson state=latest
+    - name: install sssd
+      yum: name=sssd state=present
+    - name: install authconfig
+      yum: name=authconfig state=present
+    - name: install openldap clients
+      yum: name=openldap-clients state=present
+    - name: install gcc
+      yum: name=gcc state=present 
+    - name: install python-devel
+      yum: name=python-devel state=present 
+    - name: install openldap-devel
+      yum: name=openldap-devel state=present 
+    - name: install iptables-services
+      yum: name=iptables-services state=present 
+    - name: install pip
+      yum: name=python2-pip state=present 
+    - name: pip install python-ldap
+      pip: name=python-ldap umask=0022
+    - name: install aws cli
+      pip: name=awscli umask=0022
+    - name: install cfn-tools
+      shell: easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+    - name: create /etc/cfn/
+      file: path=/etc/cfn state=directory recurse=yes
