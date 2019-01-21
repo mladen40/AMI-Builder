@@ -6,10 +6,6 @@
   tasks:
     - name: Copy Repo files from temp
       shell: cp /etc/yum.repos.d/temp/*.repo /etc/yum.repos.d
-    - name: install cfn-tools
-      shell: easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
-    - name: create /etc/cfn/
-      file: path=/etc/cfn state=directory recurse=yes
     - name: install epel
       yum: name=epel-release state=present
     - name: install device-mapper
@@ -51,3 +47,7 @@
       pip: name=python-ldap umask=0022
     - name: install aws cli
       pip: name=awscli umask=0022
+    - name: install cfn-tools
+      shell: easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+    - name: create /etc/cfn/
+      file: path=/etc/cfn state=directory recurse=yes
