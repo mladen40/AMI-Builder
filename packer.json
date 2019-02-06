@@ -18,7 +18,7 @@
             "subnet_id": "{{user `aws_subnet_id` }}",
             "vpc_id": "{{ user `aws_vpc_id`}}",
             "ami_regions": ["us-west-2", "us-east-1"],
-            "ami_users": ["534295291748", "037087938423"]
+            "ami_users": ["534295291748"]
             }
     ],
     "provisioners": [
