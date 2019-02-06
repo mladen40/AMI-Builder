@@ -4,9 +4,6 @@
   become: yes
   connection: local
   tasks:
-    - name: Copy Repo files from temp
-      shell: cp /etc/yum.repos.d/temp/*.repo /etc/yum.repos.d
-
     - name: upgrade all packages
       yum:
         name: "*"
