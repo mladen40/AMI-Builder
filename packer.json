@@ -14,7 +14,7 @@
              },
             "instance_type": "t2.nano",
             "ssh_username": "deployuser",
-            "ami_name": "vsat-github-c7-base-v1.09-{{isotime \"20060102 1504\"| clean_ami_name}}",
+            "ami_name": "vsat-github-c7-base-v1.10-{{isotime \"20060102 1504\"| clean_ami_name}}",
             "subnet_id": "{{user `aws_subnet_id` }}",
             "vpc_id": "{{ user `aws_vpc_id`}}",
             "ami_regions": ["us-west-2", "us-east-1"],
