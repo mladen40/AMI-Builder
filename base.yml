@@ -4,7 +4,13 @@
   become: yes
   connection: local
   tasks:
-    - name: upgrade all packages
-      yum:
-        name: "*"
-        state: latest
+#    - name: upgrade all packages
+#      yum:
+#        name: "*"
+#        state: latest
+    - name: Copy Repo files from temp
+      shell: cp /etc/yum.repos.d/temp/*.repo /etc/yum.repos.d
+    - name: install cfn-tools
+      shell: easy_install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-latest.tar.gz
+    - name: create /etc/cfn/
+      file: path=/etc/cfn state=directory recurse=yes
