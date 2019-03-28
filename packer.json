@@ -14,7 +14,7 @@
              },
             "instance_type": "t2.nano",
             "ssh_username": "deployuser",
-            "ami_name": "vsat-github-c7-base-v1.10-{{isotime \"20060102 1504\"| clean_ami_name}}",
+            "ami_name": "vsat-github-c7-base-v1.11-{{isotime \"20060102 1504\"| clean_ami_name}}",
             "tags": {
               "OS_Version": "CentOS",
               "Release": "7"
